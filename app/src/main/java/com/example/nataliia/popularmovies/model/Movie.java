@@ -9,7 +9,7 @@ public class Movie {
     private double voteCount;
     private boolean video;
     private String posterPath;
-    private long id;
+    private int id;
     private boolean adult;
     private String backdropPath;
     private String originalLanguage;
@@ -55,11 +55,11 @@ public class Movie {
         this.posterPath = posterPath;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
