@@ -7,7 +7,7 @@ import retrofit2.http.GET;
 public interface MoviesApi {
 
     String MOVIE = "movie";
-    //TODO remove before pushing to GitHub
+    
     String API_KEY = "<place_your_API_key_here>";
     String PARAM_API_KEY = "api_key";
 

@@ -4,9 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.nataliia.popularmovies.model.Movie;
+import com.example.nataliia.popularmovies.utils.ImageUriUtils;
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -47,16 +51,23 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieImage
 
     class MovieImageViewHolder extends RecyclerView.ViewHolder {
 
+        ImageView imageView;
         TextView itemText;
 
         MovieImageViewHolder(View itemView) {
             super(itemView);
+            imageView = itemView.findViewById(R.id.movie_image);
             itemText = itemView.findViewById(R.id.movie_item_text);
         }
 
         void bind(int position) {
             itemText.setText(moviesList.get(position).getTitle());
+            Picasso picasso = Picasso.get();
+            picasso.setIndicatorsEnabled(true);
+            picasso.load(ImageUriUtils.getImageStringUrl(moviesList.get(position).getPosterPath()))
+                    .into(imageView);
         }
+
     }
 
 }
