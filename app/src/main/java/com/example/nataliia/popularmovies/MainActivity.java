@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.internal.EverythingIsNonNull;
 
 import android.os.Bundle;
 import android.view.View;
@@ -82,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
     private void loadMoviesList(Call<MoviesResponse> call) {
         call.enqueue(new Callback<MoviesResponse>() {
             @Override
+            @EverythingIsNonNull
             public void onResponse(Call<MoviesResponse> call, Response<MoviesResponse> response) {
                 MoviesResponse moviesResponse = response.body();
                 if (moviesResponse != null) {
@@ -94,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
+            @EverythingIsNonNull
             public void onFailure(Call<MoviesResponse> call, Throwable t) {
                 //TODO implement this method
 //                progressDialog.dismiss();
