@@ -1,23 +1,51 @@
 package com.example.nataliia.popularmovies.model;
 
-import java.util.Date;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class Movie {
 
+    @SerializedName("popularity")
     private double popularity;
-    private double voteCount;
+
+    @SerializedName("vote_count")
+    private int voteCount;
+
+    @SerializedName("video")
     private boolean video;
+
+    @SerializedName("poster_path")
     private String posterPath;
+
+    @SerializedName("id")
     private int id;
+
+    @SerializedName("adult")
     private boolean adult;
+
+    @SerializedName("backdrop_path")
     private String backdropPath;
+
+    @SerializedName("original_language")
     private String originalLanguage;
+
+    @SerializedName("original_title")
     private String originalTitle;
+
+    @SerializedName("genre_ids")
     private List<Integer> genreIds;
+
+    @SerializedName("title")
     private String title;
-    private int voteAverage;
+
+    @SerializedName("vote_average")
+    private double voteAverage;
+
+    @SerializedName("overview")
     private String overview;
+
+    @SerializedName("release_date")
     private String releaseDate;
 
     Movie(){
@@ -31,11 +59,11 @@ public class Movie {
         this.popularity = popularity;
     }
 
-    public double getVoteCount() {
+    public int getVoteCount() {
         return voteCount;
     }
 
-    public void setVoteCount(double voteCount) {
+    public void setVoteCount(int voteCount) {
         this.voteCount = voteCount;
     }
 
@@ -111,11 +139,11 @@ public class Movie {
         this.title = title;
     }
 
-    public int getVoteAverage() {
+    public double getVoteAverage() {
         return voteAverage;
     }
 
-    public void setVoteAverage(int voteAverage) {
+    public void setVoteAverage(double voteAverage) {
         this.voteAverage = voteAverage;
     }
 
