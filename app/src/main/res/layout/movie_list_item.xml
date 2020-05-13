@@ -1,23 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/movie_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:contentDescription="@string/movie_image_content_description"
         android:scaleType="centerCrop"/>
-
-    <TextView
-        android:id="@+id/movie_item_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:fontFamily="monospace"
-        android:textSize="14sp"
-        android:padding="16dp"
-        android:singleLine="false"/>
 
 </FrameLayout>

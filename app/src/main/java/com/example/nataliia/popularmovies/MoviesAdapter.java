@@ -14,6 +14,7 @@ import com.squareup.picasso.Picasso;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieImageViewHolder> {
@@ -35,6 +36,10 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieImage
         int layout = R.layout.movie_list_item;
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(layout, parent, false);
+        GridLayoutManager.LayoutParams lp = (GridLayoutManager.LayoutParams) view.getLayoutParams();
+        lp.height = parent.getMeasuredHeight() / 2;
+        lp.width = parent.getMeasuredWidth() / 2;
+        view.setLayoutParams(lp);
         return new MovieImageViewHolder(view);
     }
 
@@ -52,22 +57,17 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieImage
     class MovieImageViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imageView;
-        TextView itemText;
 
         MovieImageViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.movie_image);
-            itemText = itemView.findViewById(R.id.movie_item_text);
         }
 
         void bind(int position) {
-            itemText.setText(moviesList.get(position).getTitle());
             Picasso picasso = Picasso.get();
-            picasso.setIndicatorsEnabled(true);
             picasso.load(ImageUriUtils.getImageStringUrl(moviesList.get(position).getPosterPath()))
                     .into(imageView);
         }
-
     }
 
 }
