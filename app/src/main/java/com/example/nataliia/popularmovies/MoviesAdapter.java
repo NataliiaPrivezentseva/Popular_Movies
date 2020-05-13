@@ -1,21 +1,27 @@
 package com.example.nataliia.popularmovies;
 
 import android.content.Context;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.nataliia.popularmovies.model.Movie;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieImageViewHolder> {
 
-    private int moviesNumber;
+    private List<Movie> moviesList;
 
-    MoviesAdapter(int numberOfMovies) {
-        moviesNumber = numberOfMovies;
+    void setMoviesList(List<Movie> moviesList) {
+        this.moviesList = moviesList;
+    }
+
+    MoviesAdapter(List<Movie> movieList) {
+        moviesList = movieList;
     }
 
     @NonNull
@@ -25,8 +31,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieImage
         int layout = R.layout.movie_list_item;
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(layout, parent, false);
-        MovieImageViewHolder holder = new MovieImageViewHolder(view);
-        return holder;
+        return new MovieImageViewHolder(view);
     }
 
     @Override
@@ -36,7 +41,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieImage
 
     @Override
     public int getItemCount() {
-        return moviesNumber;
+        return moviesList.size();
     }
 
 
@@ -50,7 +55,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieImage
         }
 
         void bind(int position) {
-            itemText.setText("Some text");
+            itemText.setText(moviesList.get(position).getTitle());
         }
     }
 
