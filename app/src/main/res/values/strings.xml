@@ -6,4 +6,5 @@
         <item>Most Popular</item>
         <item>Top Rated</item>
     </string-array>
+    <string name="movie_details_title">Movie Details</string>
 </resources>
