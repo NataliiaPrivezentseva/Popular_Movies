@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.nataliia.popularmovies.model.Movie;
 import com.example.nataliia.popularmovies.utils.ImageUriUtils;
@@ -20,13 +19,19 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieImageViewHolder> {
 
     private List<Movie> moviesList;
+    private final MoviesAdapterOnClickHandler movieClickHandler;
 
     void setMoviesList(List<Movie> moviesList) {
         this.moviesList = moviesList;
     }
 
-    MoviesAdapter(List<Movie> movieList) {
+    public interface MoviesAdapterOnClickHandler {
+        void onClick(Movie movie);
+    }
+
+    MoviesAdapter(List<Movie> movieList, MoviesAdapterOnClickHandler clickHandler) {
         moviesList = movieList;
+        movieClickHandler = clickHandler;
     }
 
     @NonNull
@@ -54,19 +59,27 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieImage
     }
 
 
-    class MovieImageViewHolder extends RecyclerView.ViewHolder {
+    class MovieImageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView imageView;
 
         MovieImageViewHolder(View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.movie_image);
+            imageView.setOnClickListener(this);
         }
 
         void bind(int position) {
             Picasso picasso = Picasso.get();
             picasso.load(ImageUriUtils.getImageStringUrl(moviesList.get(position).getPosterPath()))
                     .into(imageView);
+        }
+
+        @Override
+        public void onClick(View v) {
+            int adapterPosition = getAdapterPosition();
+            Movie selectedMovie = moviesList.get(adapterPosition);
+            movieClickHandler.onClick(selectedMovie);
         }
     }
 

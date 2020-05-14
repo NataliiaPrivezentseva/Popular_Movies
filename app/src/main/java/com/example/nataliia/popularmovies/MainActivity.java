@@ -23,7 +23,7 @@ import com.example.nataliia.popularmovies.network.RetrofitMoviesApi;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MoviesAdapter.MoviesAdapterOnClickHandler {
 
     private RecyclerView moviesRecyclerView;
     private MoviesAdapter moviesAdapter;
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         moviesRecyclerView.setLayoutManager(layoutManager);
 
         moviesList = new ArrayList<>();
-        moviesAdapter = new MoviesAdapter(moviesList);
+        moviesAdapter = new MoviesAdapter(moviesList, this);
         moviesRecyclerView.setAdapter(moviesAdapter);
 
         Spinner spinner = findViewById(R.id.sort_by_spinner);
@@ -106,4 +106,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onClick(Movie movie) {
+        Toast.makeText(MainActivity.this, movie.getTitle(), Toast.LENGTH_SHORT).show();
+    }
 }
