@@ -8,6 +8,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.internal.EverythingIsNonNull;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -108,6 +109,8 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
 
     @Override
     public void onClick(Movie movie) {
-        Toast.makeText(MainActivity.this, movie.getTitle(), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, MovieDetailsActivity.class);
+        intent.putExtra("movie", movie);
+        startActivity(intent);
     }
 }
