@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,6 +22,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private TextView rate;
     private TextView plot;
 
+    private final static String TAG = "MovieDetailsActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +32,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         if (intent == null) {
-            //TODO implement case
+            Log.i(TAG, "Intent was null");
         } else {
             Movie movie = (Movie) Objects.requireNonNull(intent.getExtras()).get("movie");
             if (movie != null) {
