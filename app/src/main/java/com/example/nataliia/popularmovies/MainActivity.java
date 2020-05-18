@@ -8,11 +8,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.internal.EverythingIsNonNull;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -29,6 +34,7 @@ import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 public class MainActivity extends AppCompatActivity implements MoviesAdapter.MoviesAdapterOnClickHandler {
 
     private RecyclerView moviesRecyclerView;
+    private ProgressBar progressBar;
     private MoviesAdapter moviesAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
@@ -46,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
         setContentView(R.layout.activity_main);
 
         moviesRecyclerView = findViewById(R.id.movies_recycler_view);
+        progressBar = findViewById(R.id.progress_bar);
         moviesRecyclerView.setHasFixedSize(true);
 
         if (this.getResources().getConfiguration().orientation == ORIENTATION_PORTRAIT) {
@@ -77,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
                     call = service.getTopRatedMoviesResponse();
                 }
 
+                progressBar.setVisibility(View.VISIBLE);
                 loadMoviesList(call);
             }
 
@@ -97,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
                 if (moviesResponse != null) {
                     moviesList = moviesResponse.getResults();
                     if (moviesList != null && !moviesList.isEmpty()) {
+                        progressBar.setVisibility(View.INVISIBLE);
                         moviesAdapter.setMoviesList(moviesList);
                         moviesAdapter.notifyDataSetChanged();
                     }
@@ -106,10 +115,23 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
             @Override
             @EverythingIsNonNull
             public void onFailure(Call<MoviesResponse> call, Throwable t) {
-                //TODO implement this method
-//                progressDialog.dismiss();
+                progressBar.setVisibility(View.INVISIBLE);
+
+                ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo netInfo = null;
+                if (cm != null) {
+                    netInfo = cm.getActiveNetworkInfo();
+                }
+
+                String errorMessage;
+                if (netInfo != null && netInfo.isConnectedOrConnecting()){
+                    errorMessage = getString(R.string.general_error_message);
+                } else {
+                    errorMessage = getString(R.string.no_internet_error_message);
+                }
+
                 t.printStackTrace();
-                Toast.makeText(MainActivity.this, "Something went wrong...Please try later!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
             }
         });
     }
