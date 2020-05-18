@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
     static final int COLUMN_COUNT_PORTRAIT = 2;
     static final int COLUMN_COUNT_LANDSCAPE = 3;
 
+    private static final String TAG = "MainActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,8 +126,9 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
                 }
 
                 String errorMessage;
-                if (netInfo != null && netInfo.isConnectedOrConnecting()){
+                if (netInfo != null && netInfo.isConnectedOrConnecting()) {
                     errorMessage = getString(R.string.general_error_message);
+                    Log.d(TAG, "Error happened while receiving a MoviesResponse", t);
                 } else {
                     errorMessage = getString(R.string.no_internet_error_message);
                 }
