@@ -24,6 +24,8 @@ import com.example.nataliia.popularmovies.network.RetrofitMoviesApi;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
+
 public class MainActivity extends AppCompatActivity implements MoviesAdapter.MoviesAdapterOnClickHandler {
 
     private RecyclerView moviesRecyclerView;
@@ -35,7 +37,8 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
     private static boolean sortByTopRated;
     private static Call<MoviesResponse> call;
 
-    private static final int COLUMN_COUNT = 2;
+    static final int COLUMN_COUNT_PORTRAIT = 2;
+    static final int COLUMN_COUNT_LANDSCAPE = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +48,11 @@ public class MainActivity extends AppCompatActivity implements MoviesAdapter.Mov
         moviesRecyclerView = findViewById(R.id.movies_recycler_view);
         moviesRecyclerView.setHasFixedSize(true);
 
-        layoutManager = new GridLayoutManager(this, COLUMN_COUNT);
+        if (this.getResources().getConfiguration().orientation == ORIENTATION_PORTRAIT) {
+            layoutManager = new GridLayoutManager(this, COLUMN_COUNT_PORTRAIT);
+        } else {
+            layoutManager = new GridLayoutManager(this, COLUMN_COUNT_LANDSCAPE);
+        }
         moviesRecyclerView.setLayoutManager(layoutManager);
 
         moviesList = new ArrayList<>();

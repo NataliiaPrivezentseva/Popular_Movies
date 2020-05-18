@@ -1,5 +1,6 @@
 package com.example.nataliia.popularmovies;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,8 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieImageViewHolder> {
 
@@ -41,9 +44,15 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MovieImage
         int layout = R.layout.movie_list_item;
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(layout, parent, false);
+
         GridLayoutManager.LayoutParams lp = (GridLayoutManager.LayoutParams) view.getLayoutParams();
-        lp.height = parent.getMeasuredHeight() / 2;
-        lp.width = parent.getMeasuredWidth() / 2;
+        if (context.getResources().getConfiguration().orientation == ORIENTATION_PORTRAIT) {
+            lp.height = parent.getMeasuredHeight() / MainActivity.COLUMN_COUNT_PORTRAIT;
+            lp.width = parent.getMeasuredWidth() / MainActivity.COLUMN_COUNT_PORTRAIT;
+        } else {
+            lp.width = parent.getMeasuredWidth() / MainActivity.COLUMN_COUNT_LANDSCAPE;
+        }
+
         view.setLayoutParams(lp);
         return new MovieImageViewHolder(view);
     }
