@@ -55,7 +55,10 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 .into(poster);
 
         releaseDate.setText(movie.getReleaseDate());
-        rate.setText(String.valueOf(movie.getVoteAverage()));
+
+        String rateValue = movie.getVoteAverage() + "/10";
+        rate.setText(rateValue);
+
         plot.setText(movie.getOverview());
     }
 }
